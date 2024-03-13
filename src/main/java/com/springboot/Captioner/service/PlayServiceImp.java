@@ -13,6 +13,7 @@ public class PlayServiceImp implements PlayService {
     @Override
     public void savePlay(Plays play) {
         play.setTitle(play.getTitle());
+        play.setStartTime(play.getStartTime());
         playRepository.save(play);
     }
 
