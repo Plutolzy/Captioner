@@ -1,8 +1,11 @@
 package com.springboot.Captioner.controller;
 
 import com.springboot.Captioner.repository.UserRepository;
+import com.springboot.Captioner.service.UserDetailService;
 import com.springboot.Captioner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -28,10 +31,12 @@ public class AuthenticationController {
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
         modelAndView.setViewName("login"); // resources/template/login.html
         return modelAndView;
     }
-
+    //你演示一下
     @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
     public ModelAndView register(){
         ModelAndView modelAndView = new ModelAndView();
@@ -71,4 +76,5 @@ public class AuthenticationController {
         modelAndView.setViewName("register");
         return modelAndView;
     }
+
 }

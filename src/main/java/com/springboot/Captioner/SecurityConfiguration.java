@@ -2,6 +2,7 @@ package com.springboot.Captioner;
 
 import javax.sql.DataSource;
 
+import com.springboot.Captioner.service.UserDetailServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+    @Autowired
+    private UserDetailServiceImp userDetailService;
+
 
     @Value("${spring.queries.users-query}")
     private String usersQuery;
@@ -31,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().usersByUsernameQuery(usersQuery).dataSource(dataSource).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(userDetailService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
 
@@ -51,8 +55,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/home")
-                .usernameParameter("user.user_email")
-                .passwordParameter("user.user_password")
+                .usernameParameter("email")
+                .passwordParameter("password")
                 .and()
                 // logout
                 .logout()
