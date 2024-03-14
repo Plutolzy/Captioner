@@ -1,8 +1,11 @@
 package com.springboot.Captioner.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
+
 @Entity
 @Table(name = "play")
 public class Plays {
@@ -14,7 +17,8 @@ public class Plays {
     @Column(name = "play_title")
     private String title;
 
-    @Column(name = "play_startTime")
+    @Column(name = "play_start_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime startTime;  // 演出开始时间
 
     @ManyToMany(mappedBy = "plays")
