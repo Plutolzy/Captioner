@@ -9,6 +9,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UsernameNotFoundException.class)
     public void handleUsernameNotFoundException(UsernameNotFoundException ex) {
-        System.out.println("User not found. Error message: " + ex.getMessage());
+        System.out.println("Admin not found. Error message: " + ex.getMessage());
     }
 }

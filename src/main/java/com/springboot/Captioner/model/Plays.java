@@ -22,7 +22,7 @@ public class Plays {
     private LocalDateTime startTime;  // 演出开始时间
 
     @ManyToMany(mappedBy = "plays")
-    private Set<User> users;
+    private Set<Admin> admins;
 
     public String getTitle() {
         return title;
@@ -40,12 +40,12 @@ public class Plays {
         this.id = id;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<Admin> getAdmins() {
+        return admins;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setAdmins(Set<Admin> admins) {
+        this.admins = admins;
     }
 
     public LocalDateTime getStartTime() {

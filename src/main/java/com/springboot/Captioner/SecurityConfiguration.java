@@ -1,8 +1,6 @@
 package com.springboot.Captioner;
 
-import javax.sql.DataSource;
-
-import com.springboot.Captioner.service.UserDetailServiceImp;
+import com.springboot.Captioner.service.AdminDetailServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -21,21 +21,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
     @Autowired
-    private UserDetailServiceImp userDetailService;
+    private AdminDetailServiceImp adminDetailService;
 
 
-    @Value("${spring.queries.users-query}")
-    private String usersQuery;
+    @Value("${spring.queries.admins-query}")
+    private String adminsQuery;
 
     @Value("${spring.queries.plays-query}")
     private String playsQuery;
 
-    @Value("${spring.queries.user_play-query}")
+    @Value("${spring.queries.admin_play-query}")
     private String user_playQuery;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(adminDetailService).passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
 

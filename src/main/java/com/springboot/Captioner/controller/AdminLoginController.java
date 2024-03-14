@@ -1,47 +1,40 @@
 package com.springboot.Captioner.controller;
 
-import com.springboot.Captioner.repository.UserRepository;
-import com.springboot.Captioner.service.UserDetailService;
-import com.springboot.Captioner.service.UserService;
+import com.springboot.Captioner.model.Admin;
+import com.springboot.Captioner.repository.AdminRepository;
+import com.springboot.Captioner.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.springboot.Captioner.model.User;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
 @Controller
-public class AuthenticationController {
+public class AdminLoginController {
     @Autowired
-    UserService userService;
+    AdminService adminService;
 
     @Autowired
-    UserRepository userRepository;
+    AdminRepository adminRepository;
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-    public ModelAndView login(){
+    public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
+        Admin admin = new Admin();
+        modelAndView.addObject("admin", admin);
         modelAndView.setViewName("login"); // resources/template/login.html
         return modelAndView;
     }
-    //你演示一下
+
     @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
-    public ModelAndView register(){
+    public ModelAndView register() {
         ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
+        Admin admin = new Admin();
+        modelAndView.addObject("admin", admin);
         modelAndView.setViewName("register"); // resources/template/register.html
         return modelAndView;
     }
@@ -61,18 +54,18 @@ public class AuthenticationController {
 //    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap){
+    public ModelAndView registerAdmin(@Valid Admin admin, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             modelAndView.addObject("successMessage", "Please add correct details!");
             modelMap.addAttribute("bindingResult", bindingResult);
-        }else if(userService.isUserPresent(user)){
-            modelAndView.addObject("successMessage", "User already exists!");
-        }else {
-            userService.saveUser(user);
-            modelAndView.addObject("successMessage", "User registered successfully!");
+        } else if (adminService.isAdminPresent(admin)) {
+            modelAndView.addObject("successMessage", "Admin already exists!");
+        } else {
+            adminService.saveAdmin(admin);
+            modelAndView.addObject("successMessage", "Admin registered successfully!");
         }
-        modelAndView.addObject("user", new User());
+        modelAndView.addObject("admin", new Admin());
         modelAndView.setViewName("register");
         return modelAndView;
     }
