@@ -44,9 +44,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // URL matching for accessibility
                 .antMatchers("/").permitAll()
+                .antMatchers("/api/user/register").permitAll()
+                .antMatchers("/api/user/login").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/addPlay").permitAll()
+                .antMatchers("/error").authenticated()
                 .antMatchers("/home").authenticated()
                 .anyRequest().authenticated()
                 .and()

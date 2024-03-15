@@ -21,8 +21,11 @@ public class Plays {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime startTime;  // 演出开始时间
 
+//    @Column(name = "script_id")
+//    private int scriptId;
+
     @ManyToMany(mappedBy = "plays")
-    private Set<Admin> admins;
+    private Set<User> users;
 
     public String getTitle() {
         return title;
@@ -40,12 +43,12 @@ public class Plays {
         this.id = id;
     }
 
-    public Set<Admin> getAdmins() {
-        return admins;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setAdmins(Set<Admin> admins) {
-        this.admins = admins;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public LocalDateTime getStartTime() {

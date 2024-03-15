@@ -5,7 +5,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Entity
 @Table(name = "admin")
@@ -15,7 +14,7 @@ public class Admin {
     @Column(name = "admin_id")
     private int id;
 
-    @NotNull(message = "First Name cannot be empty")
+    @NotNull(message = "Name cannot be empty")
     @Column(name = "admin_name")
     private String name;
 
@@ -25,21 +24,9 @@ public class Admin {
     private String email;
 
     @NotNull(message = "Password cannot be empty")
-    @Length(min = 5, message = "Password should be atleast 5 characters long")
+    @Length(min = 5, message = "Password should be at least 5 characters long")
     @Column(name = "admin_password")
     private String password;
-
-//    @Column(name = "mobile")
-//    private String mobile;
-
-//    @Column(name = "status")
-//    private String status;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "admin_play",
-            joinColumns = {@JoinColumn(name = "admin_id")},
-            inverseJoinColumns = {@JoinColumn(name = "play_id")})
-    private Set<Plays> plays;
 
     public int getId(){
         return id;
@@ -65,11 +52,5 @@ public class Admin {
     }
     public void setPassword(String password){
         this.password = password;
-    }
-    public Set<Plays> getPlays(){
-        return plays;
-    }
-    public void setPlays(Set<Plays> plays){
-        this.plays = plays;
     }
 }
