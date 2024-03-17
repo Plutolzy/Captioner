@@ -27,7 +27,7 @@ public class UserLoginController {
             response.setMessage("User already exists");
             System.out.println("buniubi");
             response.setEmail(user.getEmail());
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok(response);
         } else {
             // 注册成功
             UserResponse response = new UserResponse();
@@ -60,7 +60,38 @@ public class UserLoginController {
             System.out.println("buniubi" );
             // Email为空，因为登录失败不应返回邮箱信息
             response.setEmail(null);
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok(response);
+        }
+    }
+    //找回密码
+    @PostMapping("/forget")
+    public ResponseEntity<UserResponse> forgetPassword(@RequestBody User user) {
+        User existingUser = userService.getUserByEmail(user.getEmail());
+        if (existingUser != null && existingUser.getName().equals(user.getName())) {
+            // 注册过
+            UserResponse response = new UserResponse();
+            response.setSuccess(true);
+            response.setMessage("Password changed");
+            existingUser.setPassword(user.getPassword());
+            userService.saveUser(existingUser);
+            System.out.println("niubi");
+            response.setEmail(user.getEmail());
+            return ResponseEntity.ok(response);
+        } else if (existingUser == null){
+            // 不存在用户
+            UserResponse response = new UserResponse();
+            response.setSuccess(false);
+            response.setMessage("User not exist");
+            System.out.println("buniubi" );
+            response.setEmail(user.getEmail());
+            return ResponseEntity.ok(response);
+        }else{
+            UserResponse response = new UserResponse();
+            response.setSuccess(false);
+            response.setMessage("Name is wrong");
+            System.out.println("buniubi" );
+            response.setEmail(user.getEmail());
+            return ResponseEntity.ok(response);
         }
     }
 
