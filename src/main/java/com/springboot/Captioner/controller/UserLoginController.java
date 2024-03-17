@@ -19,13 +19,24 @@ public class UserLoginController {
 
     // 注册新用户
     @PostMapping("/register")
-    public String registerUser(@RequestBody User user) {
-        // By finding Email
+    public ResponseEntity<UserResponse> registerUser(@RequestBody User user) {
         if (userService.isUserPresent(user)) {
-            return "User already exists";
+            // 注册失败
+            UserResponse response = new UserResponse();
+            response.setSuccess(false);
+            response.setMessage("User already exists");
+            System.out.println("buniubi");
+            response.setEmail(user.getEmail());
+            return ResponseEntity.badRequest().body(response);
         } else {
+            // 注册成功
+            UserResponse response = new UserResponse();
+            response.setSuccess(true);
             userService.saveUser(user);
-            return "User registered successfully";
+            response.setMessage("User registered successfully");
+            System.out.println("niubi" );
+            response.setEmail(user.getEmail());
+            return ResponseEntity.ok(response);
         }
     }
 
