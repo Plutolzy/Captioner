@@ -1,6 +1,6 @@
 package com.springboot.Captioner.controller;
 
-import com.springboot.Captioner.model.Plays;
+import com.springboot.Captioner.model.Play;
 import com.springboot.Captioner.service.PlayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,14 +20,14 @@ public class AddPlayController {
     @RequestMapping(value = {"/addPlay"}, method = RequestMethod.GET)
     public ModelAndView addPlays(){
         ModelAndView modelAndView = new ModelAndView();
-        Plays play = new Plays();
+        Play play = new Play();
         modelAndView.addObject("play", play);
         modelAndView.setViewName("addPlay"); // resources/template/register.html
         return modelAndView;
     }
 
     @RequestMapping(value = "/addPlay", method = RequestMethod.POST)
-    public ModelAndView addPlay(@Valid Plays play, BindingResult bindingResult, ModelMap modelMap){
+    public ModelAndView addPlay(@Valid Play play, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
         if(bindingResult.hasErrors()){
             modelAndView.addObject("successMessage", "Please add correct details!");
@@ -38,7 +38,7 @@ public class AddPlayController {
             playService.savePlay(play);
             modelAndView.addObject("successMessage", "Play added successfully!");
         }
-        modelAndView.addObject("play", new Plays());
+        modelAndView.addObject("play", new Play());
         modelAndView.setViewName("addPlay");
         return modelAndView;
     }

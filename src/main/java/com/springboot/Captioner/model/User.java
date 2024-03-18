@@ -33,7 +33,7 @@ public class User {
     @JoinTable(name = "user_play",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "play_id")})
-    private Set<Plays> plays;
+    private Set<Play> plays;
 
     public int getId() {
         return id;
@@ -67,11 +67,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Plays> getPlays() {
+    public Set<Play> getPlays() {
         return plays;
     }
 
-    public void setPlays(Set<Plays> plays) {
+    public void setPlays(Set<Play> plays) {
         this.plays = plays;
     }
 }

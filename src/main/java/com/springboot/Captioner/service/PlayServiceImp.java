@@ -1,6 +1,6 @@
 package com.springboot.Captioner.service;
 
-import com.springboot.Captioner.model.Plays;
+import com.springboot.Captioner.model.Play;
 import com.springboot.Captioner.repository.PlayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,16 +11,16 @@ public class PlayServiceImp implements PlayService {
     PlayRepository playRepository;
 
     @Override
-    public void savePlay(Plays play) {
+    public void savePlay(Play play) {
         play.setTitle(play.getTitle());
         play.setStartTime(play.getStartTime());
         playRepository.save(play);
     }
 
     @Override
-    public boolean isPlayPresent(Plays play) {
+    public boolean isPlayPresent(Play play) {
         boolean playExists = false;
-        Plays existingPlay = playRepository.findByTitle(play.getTitle());
+        Play existingPlay = playRepository.findByTitle(play.getTitle());
         if(existingPlay!=null){
             playExists = true;
         }
