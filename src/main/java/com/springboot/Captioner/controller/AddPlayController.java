@@ -17,16 +17,16 @@ public class AddPlayController {
     @Autowired
     PlayService playService;
 
-    @RequestMapping(value = {"/addPlay"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/addplay"}, method = RequestMethod.GET)
     public ModelAndView addPlays(){
         ModelAndView modelAndView = new ModelAndView();
         Play play = new Play();
         modelAndView.addObject("play", play);
-        modelAndView.setViewName("addPlay"); // resources/template/register.html
+        modelAndView.setViewName("addplay"); // resources/template/register.html
         return modelAndView;
     }
 
-    @RequestMapping(value = "/addPlay", method = RequestMethod.POST)
+    @RequestMapping(value = "/addplay", method = RequestMethod.POST)
     public ModelAndView addPlay(@Valid Play play, BindingResult bindingResult, ModelMap modelMap){
         ModelAndView modelAndView = new ModelAndView();
         if(bindingResult.hasErrors()){
@@ -39,7 +39,7 @@ public class AddPlayController {
             modelAndView.addObject("successMessage", "Play added successfully!");
         }
         modelAndView.addObject("play", new Play());
-        modelAndView.setViewName("addPlay");
+        modelAndView.setViewName("addplay");
         return modelAndView;
     }
 }
