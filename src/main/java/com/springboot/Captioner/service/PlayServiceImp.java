@@ -5,12 +5,15 @@ import com.springboot.Captioner.model.PlayDTO;
 import com.springboot.Captioner.repository.PlayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class PlayServiceImp implements PlayService {
+    private static final Logger log = LogManager.getLogger(PlayServiceImp.class);
     @Autowired
     PlayRepository playRepository;
 
@@ -48,6 +51,8 @@ public class PlayServiceImp implements PlayService {
         dto.setTitle(play.getTitle());
         dto.setStartTime(play.getStartTime());
         dto.setEndTime(play.getEndTime());
+        // 添加日志记录
+        System.out.println("Converting play to DTO: " + dto);
         return dto;
     }
 }
