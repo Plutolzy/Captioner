@@ -2,13 +2,23 @@ package com.springboot.Captioner.controller;
 
 import com.springboot.Captioner.model.User;
 import com.springboot.Captioner.model.UserResponse;
+import com.springboot.Captioner.repository.AdminRepository;
+import com.springboot.Captioner.repository.UserRepository;
 import com.springboot.Captioner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/user")
@@ -17,6 +27,8 @@ public class UserLoginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
     // 注册新用户
     @PostMapping("/register")
     public ResponseEntity<UserResponse> registerUser(@RequestBody User user) {
@@ -42,10 +54,18 @@ public class UserLoginController {
 
     // 用户登录
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> loginUser(@RequestBody User user) {
+    public ResponseEntity<UserResponse> loginUser(@RequestBody User user,HttpServletRequest request) {
         User existingUser = userService.getUserByEmail(user.getEmail());
         if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            // 登录成功
+            // 登录成功, 手动设置认证信息
+            Authentication auth = new UsernamePasswordAuthenticationToken(
+                    existingUser.getEmail(), null, Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
+            // 创建会话
+            request.getSession(true);
+
+            // 构建响应
             UserResponse response = new UserResponse();
             response.setSuccess(true);
             response.setMessage("Login successful");
@@ -63,6 +83,7 @@ public class UserLoginController {
             return ResponseEntity.ok(response);
         }
     }
+
     //找回密码
     @PostMapping("/forget")
     public ResponseEntity<UserResponse> forgetPassword(@RequestBody User user) {

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlayRepository extends JpaRepository<Play, Integer> {
 //    public Plays findByPlay(String play);
-    public Play findByTitle(String title);
+Play findByTitle(String title);
 }

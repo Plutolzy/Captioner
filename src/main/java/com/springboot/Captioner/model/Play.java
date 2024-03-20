@@ -21,6 +21,10 @@ public class Play {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime startTime;  // 演出开始时间
 
+    @Column(name = "play_end_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime endTime;  // 演出结束时间
+
 //    @Column(name = "script_id")
 //    private int scriptId;
 
@@ -57,5 +61,21 @@ public class Play {
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public boolean isBooked() {
+        return LocalDateTime.now().isBefore(this.endTime);
+    }
+
+    public boolean hasEnded() {
+        return LocalDateTime.now().isAfter(this.endTime);
     }
 }

@@ -30,14 +30,14 @@ public class AdminLoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
-    public ModelAndView register() {
-        ModelAndView modelAndView = new ModelAndView();
-        Admin admin = new Admin();
-        modelAndView.addObject("admin", admin);
-        modelAndView.setViewName("register"); // resources/template/register.html
-        return modelAndView;
-    }
+//    @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
+//    public ModelAndView register() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        Admin admin = new Admin();
+//        modelAndView.addObject("admin", admin);
+//        modelAndView.setViewName("register"); // resources/template/register.html
+//        return modelAndView;
+//    }
 
     @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
     public ModelAndView home(){
@@ -53,21 +53,21 @@ public class AdminLoginController {
 //        return modelAndView;
 //    }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ModelAndView registerAdmin(@Valid Admin admin, BindingResult bindingResult, ModelMap modelMap) {
-        ModelAndView modelAndView = new ModelAndView();
-        if (bindingResult.hasErrors()) {
-            modelAndView.addObject("successMessage", "Please add correct details!");
-            modelMap.addAttribute("bindingResult", bindingResult);
-        } else if (adminService.isAdminPresent(admin)) {
-            modelAndView.addObject("successMessage", "Admin already exists!");
-        } else {
-            adminService.saveAdmin(admin);
-            modelAndView.addObject("successMessage", "Admin registered successfully!");
-        }
-        modelAndView.addObject("admin", new Admin());
-        modelAndView.setViewName("register");
-        return modelAndView;
-    }
+//    @RequestMapping(value = "/register", method = RequestMethod.POST)
+//    public ModelAndView registerAdmin(@Valid Admin admin, BindingResult bindingResult, ModelMap modelMap) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        if (bindingResult.hasErrors()) {
+//            modelAndView.addObject("successMessage", "Please add correct details!");
+//            modelMap.addAttribute("bindingResult", bindingResult);
+//        } else if (adminService.isAdminPresent(admin)) {
+//            modelAndView.addObject("successMessage", "Admin already exists!");
+//        } else {
+//            adminService.saveAdmin(admin);
+//            modelAndView.addObject("successMessage", "Admin registered successfully!");
+//        }
+//        modelAndView.addObject("admin", new Admin());
+//        modelAndView.setViewName("register");
+//        return modelAndView;
+//    }
 
 }
