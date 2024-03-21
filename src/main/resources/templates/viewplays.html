@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>View Plays</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container-fluid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background-color: #ffffff;
+      padding: 40px 60px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body style="background-color: #ededed;">
+<div class="container-fluid">
+  <div class="container">
+    <h1>View Plays</h1>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- 使用 Thymeleaf 迭代渲染 playList 中的每个 Play 对象 -->
+      <tr th:each="play : ${plays}">
+        <td th:text="${play.id}"></td>
+        <td th:text="${play.title}"></td>
+        <td th:text="${play.startTime}"></td>
+        <td th:text="${play.endTime}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
