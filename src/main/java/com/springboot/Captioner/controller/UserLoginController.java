@@ -2,12 +2,10 @@ package com.springboot.Captioner.controller;
 
 import com.springboot.Captioner.model.User;
 import com.springboot.Captioner.model.UserResponse;
-import com.springboot.Captioner.repository.AdminRepository;
 import com.springboot.Captioner.repository.UserRepository;
 import com.springboot.Captioner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

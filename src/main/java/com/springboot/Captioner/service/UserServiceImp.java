@@ -1,9 +1,13 @@
 package com.springboot.Captioner.service;
 
 import com.springboot.Captioner.model.User;
+import com.springboot.Captioner.model.UserDTO;
 import com.springboot.Captioner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -29,5 +33,20 @@ public class UserServiceImp implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(this::convertToUserDTO).collect(Collectors.toList());
+    }
+
+    private UserDTO convertToUserDTO(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
+        dto.setEmail(user.getEmail());
+        dto.setName(user.getName());
+        // 添加日志记录
+        System.out.println("Converting play to DTO: " + dto);
+        return dto;
     }
 }

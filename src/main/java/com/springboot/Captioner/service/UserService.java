@@ -1,6 +1,9 @@
 package com.springboot.Captioner.service;
 
 import com.springboot.Captioner.model.User;
+import com.springboot.Captioner.model.UserDTO;
+
+import java.util.List;
 
 public interface UserService {
     void saveUser(User user);
@@ -8,4 +11,6 @@ public interface UserService {
     boolean isUserPresent(User user);
 
     User getUserByEmail(String email);
+
+    public List<UserDTO> getAllUsers();
 }

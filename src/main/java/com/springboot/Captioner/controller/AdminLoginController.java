@@ -1,17 +1,19 @@
 package com.springboot.Captioner.controller;
 
 import com.springboot.Captioner.model.Admin;
+import com.springboot.Captioner.model.UserDTO;
 import com.springboot.Captioner.repository.AdminRepository;
 import com.springboot.Captioner.service.AdminService;
+import com.springboot.Captioner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class AdminLoginController {
@@ -20,6 +22,9 @@ public class AdminLoginController {
 
     @Autowired
     AdminRepository adminRepository;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public ModelAndView login() {
@@ -40,10 +45,17 @@ public class AdminLoginController {
 //    }
 
     @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
-    public ModelAndView home(){
+    public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home"); // resources/template/home.html
         return modelAndView;
+    }
+
+    @GetMapping("/manageusers")
+    public String manageUsers(Model model) {
+        List<UserDTO> users = userService.getAllUsers();
+        model.addAttribute("users", users); // 将 plays 数据添加到模型中
+        return "manageusers"; // 返回视图名称
     }
 
 //    @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
