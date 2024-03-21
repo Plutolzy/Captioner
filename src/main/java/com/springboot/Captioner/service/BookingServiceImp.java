@@ -11,29 +11,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BookingServiceImp {
+public class BookingServiceImp implements BookingService { // 确保实现了接口
 
     @Autowired
     private BookingRepository bookingRepository;
 
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    private PlayRepository playRepository;
-
-    // 预定Play
+    @Override // 确保覆盖接口中的方法
     public Booking bookPlay(String userEmail, String playTitle) {
-        User user = userRepository.findByEmail(userEmail);
-        Play play = playRepository.findByTitle(playTitle);
 
-        Booking booking = new Booking(user.getEmail(), play.getTitle());
+        Booking booking = new Booking(userEmail, playTitle);
         return bookingRepository.save(booking);
     }
 
-    // 查找用户的所有预定
+    @Override // 确保覆盖接口中的方法
     public List<Booking> findAllBookingsByUserEmail(String userEmail) {
         return bookingRepository.findAllByUserEmail(userEmail);
     }
 }
-

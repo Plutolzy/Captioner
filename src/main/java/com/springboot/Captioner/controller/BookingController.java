@@ -1,14 +1,14 @@
 package com.springboot.Captioner.controller;
 
-import com.google.gson.Gson;
-import com.springboot.Captioner.model.Play;
-import com.springboot.Captioner.model.PlayDTO;
-import com.springboot.Captioner.model.PlayDTOBean;
+import com.springboot.Captioner.model.*;
+import com.springboot.Captioner.service.BookingService;
 import com.springboot.Captioner.service.PlayService;
+import com.springboot.Captioner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import com.springboot.Captioner.model.Booking;
 import com.springboot.Captioner.service.BookingServiceImp;
 
 import java.time.format.DateTimeFormatter;
@@ -20,7 +20,9 @@ import java.util.List;
 public class BookingController {
 
     @Autowired
-    private BookingServiceImp bookingService;
+    private BookingService bookingService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private PlayService playService;
 
@@ -53,6 +55,18 @@ public class BookingController {
             list.add(playDTOBean);
         }
         return list;
+    }
+
+    @PostMapping("/book")
+    public ResponseEntity<?> bookPlay(@RequestBody PlayTitleDTO playTitleDTO) {
+        String user_email = userService.getCurrentUserEmail();
+        String play_title = playTitleDTO.getTitle();
+        bookingService.bookPlay(user_email,play_title);
+        UserResponse response = new UserResponse();
+        response.setSuccess(true);
+        response.setMessage("Booked successfully");
+        System.out.println("niubi");
+        return ResponseEntity.ok(response);
     }
 
 

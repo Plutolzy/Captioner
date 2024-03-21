@@ -2,6 +2,7 @@ package com.springboot.Captioner.service;
 
 import com.springboot.Captioner.model.Play;
 import com.springboot.Captioner.model.PlayDTO;
+import com.springboot.Captioner.model.PlayTitleDTO;
 import com.springboot.Captioner.repository.PlayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,17 +43,20 @@ public class PlayServiceImp implements PlayService {
     // 将 Play 实体转换为 PlayDTO
     public List<PlayDTO> getAllPlays() {
         List<Play> plays = playRepository.findAll();
-        return plays.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return plays.stream().map(this::convertToPlayDTO).collect(Collectors.toList());
     }
 
-    private PlayDTO convertToDTO(Play play) {
+    private PlayDTO convertToPlayDTO(Play play) {
         PlayDTO dto = new PlayDTO();
         dto.setId(play.getId());
         dto.setTitle(play.getTitle());
         dto.setStartTime(play.getStartTime());
         dto.setEndTime(play.getEndTime());
-        // 添加日志记录
-        System.out.println("Converting play to DTO: " + dto);
+        return dto;
+    }
+    private PlayTitleDTO convertToPlayTileDTO(Play play) {
+        PlayTitleDTO dto = new PlayTitleDTO();
+        dto.setTitle(play.getTitle());
         return dto;
     }
 }

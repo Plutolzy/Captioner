@@ -13,4 +13,6 @@ public interface UserService {
     User getUserByEmail(String email);
 
     public List<UserDTO> getAllUsers();
+
+    String getCurrentUserEmail();
 }

@@ -4,6 +4,8 @@ import com.springboot.Captioner.model.User;
 import com.springboot.Captioner.model.UserDTO;
 import com.springboot.Captioner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +50,13 @@ public class UserServiceImp implements UserService {
         // 添加日志记录
         System.out.println("Converting play to DTO: " + dto);
         return dto;
+    }
+@Override
+    public String getCurrentUserEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return authentication.getName(); // 这里假设principal直接就是email
+        }
+        return null; // 或者抛出异常
     }
 }
