@@ -73,10 +73,10 @@ public class BookingController {
     public ResponseEntity<?> cancelPlay(@RequestBody PlayTitleDTO playTitleDTO) {
         String user_email = userService.getCurrentUserEmail();
         String play_title = playTitleDTO.getTitle();
-        bookingService.bookPlay(user_email,play_title);
+        bookingService.cancelPlay(user_email,play_title);
         UserResponse response = new UserResponse();
         response.setSuccess(true);
-        response.setMessage("Booked successfully");
+        response.setMessage("Canceled successfully");
         System.out.println("niubi");
         return ResponseEntity.ok(response);
     }
