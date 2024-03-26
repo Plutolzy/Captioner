@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
     // 根据用户ID查找预定
-    Booking findByUserEmailAndPlayTitle(String userEmail, String playTitle);
+    @Query("SELECT b FROM Booking b WHERE b.userEmail = :userEmail AND b.playTitle = :playTitle")
+    Booking findByUserEmailAndPlayTitle(@Param("userEmail") String userEmail, @Param("playTitle") String playTitle);
     @Query("SELECT b.playTitle FROM Booking b WHERE b.userEmail = :userEmail")
     List<String> findPlayTitlesByUserEmail(@Param("userEmail") String userEmail);
 }
