@@ -8,6 +8,7 @@ public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_play_id")
     private int id;
 
     @Column(name = "user_email")

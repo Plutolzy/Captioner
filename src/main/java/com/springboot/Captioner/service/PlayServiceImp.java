@@ -35,6 +35,7 @@ public class PlayServiceImp implements PlayService {
         return playExists;
     }
 
+
     @Override
     public List<Play> findPlay(){
         return playRepository.findAll();

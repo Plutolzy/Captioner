@@ -1,12 +1,14 @@
 package com.springboot.Captioner.service;
 
-import com.springboot.Captioner.model.Booking;
-import com.springboot.Captioner.model.Play;
-import com.springboot.Captioner.model.User;
+import com.springboot.Captioner.model.*;
 
 import java.util.List;
 
 public interface BookingService {
     Booking bookPlay(String userEmail, String playTitle);
-    List<Booking> findAllBookingsByUserEmail(String userEmail);
+    List<PlayDTOBean> findAllBookingsByUserEmail(String userEmail);
+
+    Booking cancelPlay(String userEmail, String playTitle);
+    Booking findByUserEmailAndPlayTitle(String userEmail, String playTitle);
+
 }

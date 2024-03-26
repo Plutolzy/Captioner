@@ -26,16 +26,6 @@ public class BookingController {
     @Autowired
     private PlayService playService;
 
-    // 预定Play
-//    @PostMapping("/booking")
-//    public ResponseEntity<?> bookPlay(@RequestParam String email, @RequestParam String title) {
-//        try {
-//            Booking booking = bookingService.bookPlay(email, title);
-//            return ResponseEntity.ok().body(booking);
-//        } catch (RuntimeException ex) {
-//            return ResponseEntity.badRequest().body(ex.getMessage());
-//        }
-//    }
     @GetMapping("/booking")
     public List<PlayDTOBean> getAllPlays() {
         System.out.println("fale");
@@ -72,7 +62,22 @@ public class BookingController {
 
     // 获取用户所有预定的Play
     @GetMapping("/booked")
-    public List<Booking> getAllBookings(@RequestParam String userEmail) {
+    public List<PlayDTOBean> getBookedPlays() {
+        String userEmail = userService.getCurrentUserEmail();
         return bookingService.findAllBookingsByUserEmail(userEmail);
+    }
+
+
+
+    @PostMapping("/cancel")
+    public ResponseEntity<?> cancelPlay(@RequestBody PlayTitleDTO playTitleDTO) {
+        String user_email = userService.getCurrentUserEmail();
+        String play_title = playTitleDTO.getTitle();
+        bookingService.bookPlay(user_email,play_title);
+        UserResponse response = new UserResponse();
+        response.setSuccess(true);
+        response.setMessage("Booked successfully");
+        System.out.println("niubi");
+        return ResponseEntity.ok(response);
     }
 }

@@ -28,8 +28,8 @@ public class Play {
 //    @Column(name = "script_id")
 //    private int scriptId;
 
-    @ManyToMany(mappedBy = "plays")
-    private Set<User> users;
+//    @ManyToMany(mappedBy = "plays")
+//    private Set<User> users;
 
     public String getTitle() {
         return title;
@@ -47,13 +47,13 @@ public class Play {
         this.id = id;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+//    public Set<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(Set<User> users) {
+//        this.users = users;
+//    }
 
     public LocalDateTime getStartTime() {
         return startTime;
