@@ -12,6 +12,7 @@ public class PlayDTO {
     private LocalDateTime startTime;
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime endTime;
+    private int subtitleId;
 
     public int getId() {
         return id;
@@ -43,5 +44,13 @@ public class PlayDTO {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public int getSubtitleId() {
+        return subtitleId;
+    }
+
+    public void setSubtitleId(int subtitleId) {
+        this.subtitleId = subtitleId;
     }
 }

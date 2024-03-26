@@ -53,6 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home").authenticated()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/addplay").authenticated()
+                .antMatchers("/adddialogue").authenticated()
                 .antMatchers("/viewplays").authenticated()
                 .antMatchers("/manageusers").authenticated()
                 .antMatchers("/error").permitAll()

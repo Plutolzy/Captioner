@@ -4,7 +4,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Table(name = "play")
@@ -25,8 +24,8 @@ public class Play {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime endTime;  // 演出结束时间
 
-//    @Column(name = "script_id")
-//    private int scriptId;
+    @Column(name = "subtitle_id")
+    private int subtitleId;
 
 //    @ManyToMany(mappedBy = "plays")
 //    private Set<User> users;
@@ -77,5 +76,13 @@ public class Play {
 
     public boolean hasEnded() {
         return LocalDateTime.now().isAfter(this.endTime);
+    }
+
+    public int getSubtitleId() {
+        return subtitleId;
+    }
+
+    public void setSubtitleId(int subtitleId) {
+        this.subtitleId = subtitleId;
     }
 }

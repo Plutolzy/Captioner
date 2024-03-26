@@ -54,6 +54,7 @@
     }
 
     input[type="text"],
+    input[type="number"],
     input[type="datetime-local"] {
       width: 100%;
       padding: 12px; /* 调整输入框内边距 */
@@ -66,21 +67,24 @@
 <body style="background-color: #ededed;">
 <div class="container-fluid">
   <div class="container">
-    <form accept-charset="UTF-8" action="#" autocomplete="off" class="form-signin" method="post" th:action="@{/addplay}"
-          th:object="${play}">
-      <h1>Add Play Form</h1>
+      <form accept-charset="UTF-8" action="#" autocomplete="off" class="form-signin" method="post"
+            th:action="@{/addplay}"
+            th:object="${play}">
+          <h1>Add Play Form</h1>
 
-      <input type="text" th:field="*{title}" placeholder="Title" class="form-control"/>
+          <input type="text" th:field="*{title}" placeholder="Title" class="form-control"/>
 
-      <input class="form-control" placeholder="StartTime" th:field="*{startTime}" type="datetime-local"/>
+          <input class="form-control" min="1" placeholder="Subtitle ID" th:field="*{subtitleId}" type="number"/>
 
-      <input class="form-control" placeholder="EndTime" th:field="*{endTime}" type="datetime-local"/>
+          <input class="form-control" placeholder="StartTime" th:field="*{startTime}" type="datetime-local"/>
+
+          <input class="form-control" placeholder="EndTime" th:field="*{endTime}" type="datetime-local"/>
 
 
-      <button class="button" type="submit">Add Play</button>
+          <button class="button" type="submit">Add Play</button>
 
-      <span th:utext="${successMessage}"></span>
-      <div class="alert alert-success alert-dismissible col-sm-12"
+          <span th:utext="${successMessage}"></span>
+          <div class="alert alert-success alert-dismissible col-sm-12"
            th:if="${bindingResult!=null && bindingResult.getAllErrors()!=null}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
           X
