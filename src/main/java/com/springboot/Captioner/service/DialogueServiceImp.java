@@ -5,6 +5,8 @@ import com.springboot.Captioner.repository.DialogueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DialogueServiceImp implements DialogueService {
 
@@ -25,5 +27,13 @@ public class DialogueServiceImp implements DialogueService {
             dialogueExists = true;
         }
         return dialogueExists;
+    }
+
+    @Override
+    public List<Dialogue> saveAllDialogues(List<Dialogue> dialogueList, int subtitleId) {
+        for (Dialogue dialogue : dialogueList) {
+            dialogue.setSubtitleId(subtitleId); // 关联 subtitleId
+        }
+        return dialogueRepository.saveAll(dialogueList);
     }
 }

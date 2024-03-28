@@ -1,9 +1,6 @@
 package com.springboot.Captioner.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "dialogue")
@@ -17,15 +14,22 @@ public class Dialogue {
     private int subtitleId;
 
     @Column(name = "dialogue_start_time")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime dialogueStartTime;  // 演出开始时间
+    private String dialogueStartTime;  // 演出开始时间
 
     @Column(name = "dialogue_end_time")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime dialogueEndTime;  // 演出结束时间
+    private String dialogueEndTime;  // 演出结束时间
 
     @Column(name = "dialogue_text")
     private String dialogueText;
+
+    public Dialogue() {
+    }
+
+    public Dialogue(String startTime, String endTime, String text) {
+        this.dialogueStartTime = startTime;
+        this.dialogueEndTime = endTime;
+        this.dialogueText = text;
+    }
 
     public int getId() {
         return id;
@@ -43,19 +47,19 @@ public class Dialogue {
         this.subtitleId = subtitleId;
     }
 
-    public LocalDateTime getDialogueStartTime() {
+    public String getDialogueStartTime() {
         return dialogueStartTime;
     }
 
-    public void setDialogueStartTime(LocalDateTime dialogueStartTime) {
+    public void setDialogueStartTime(String dialogueStartTime) {
         this.dialogueStartTime = dialogueStartTime;
     }
 
-    public LocalDateTime getDialogueEndTime() {
+    public String getDialogueEndTime() {
         return dialogueEndTime;
     }
 
-    public void setDialogueEndTime(LocalDateTime dialogueEndTime) {
+    public void setDialogueEndTime(String dialogueEndTime) {
         this.dialogueEndTime = dialogueEndTime;
     }
 

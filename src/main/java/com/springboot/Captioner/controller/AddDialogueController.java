@@ -42,11 +42,4 @@ public class AddDialogueController {
         modelAndView.setViewName("adddialogue");
         return modelAndView;
     }
-//
-//    @GetMapping("/viewplays")
-//    public String viewPlays(Model model) {
-//        List<PlayDTO> plays = playService.getAllPlays();
-//        model.addAttribute("plays", plays); // 将 plays 数据添加到模型中
-//        return "viewplays"; // 返回视图名称
-//    }
 }

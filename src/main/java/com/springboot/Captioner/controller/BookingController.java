@@ -1,15 +1,15 @@
 package com.springboot.Captioner.controller;
 
-import com.springboot.Captioner.model.*;
+import com.springboot.Captioner.model.PlayDTO;
+import com.springboot.Captioner.model.PlayDTOBean;
+import com.springboot.Captioner.model.PlayTitleDTO;
+import com.springboot.Captioner.model.UserResponse;
 import com.springboot.Captioner.service.BookingService;
 import com.springboot.Captioner.service.PlayService;
 import com.springboot.Captioner.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import com.springboot.Captioner.service.BookingServiceImp;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,10 +38,10 @@ public class BookingController {
             PlayDTOBean playDTOBean = new PlayDTOBean();
             playDTOBean.setId(allPlays.get(i).getId());
             playDTOBean.setTitle(allPlays.get(i).getTitle());
-            String startLocalTime = df.format( allPlays.get(i).getStartTime());
+            String startLocalTime = df.format(allPlays.get(i).getStartTime());
             playDTOBean.setStartTime(startLocalTime);
-            String entLocalTime = df.format( allPlays.get(i).getEndTime());
-            playDTOBean.setEndTime(entLocalTime);
+            String endLocalTime = df.format(allPlays.get(i).getEndTime());
+            playDTOBean.setEndTime(endLocalTime);
             list.add(playDTOBean);
         }
         return list;

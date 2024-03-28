@@ -80,8 +80,10 @@
 
             <input class="form-control" min="1" placeholder="Subtitle ID" th:field="*{subtitleId}" type="number"/>
 
-            <input class="form-control" placeholder="Dialogues" th:field="*{dialogueText}" type="text"/>
+            <!--            <input class="form-control" placeholder="Dialogues" th:field="*{dialogueText}" type="text"/>-->
 
+            <label for="file">Select Subtitle File:</label>
+            <input accept=".srt" id="file" name="file" type="file"><br><br>
             <button class="button" type="submit">Add Dialogue</button>
 
             <span th:utext="${successMessage}"></span>
