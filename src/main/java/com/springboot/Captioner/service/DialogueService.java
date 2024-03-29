@@ -8,11 +8,14 @@ import java.util.List;
 @Service
 public interface DialogueService {
 
-    public void saveDialogue(Dialogue dialogue);
+    void saveDialogue(Dialogue dialogue);
 
-    public boolean isDialoguePresent(Dialogue dialogue);
+    boolean isDialoguePresent(Dialogue dialogue);
 
-    public List<String> getAllSubtitleNames();
+    List<String> getAllSubtitleNames();
 
-    public List<Dialogue> saveAllDialogues(List<Dialogue> dialogueList, String subtitle);
+    List<Dialogue> saveAllDialogues(List<Dialogue> dialogueList, String subtitle);
+
+    List<Dialogue> getCurrentDialogueList(String subtitle, String startTime, String currentTime);
+
 }

@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface DialogueRepository extends JpaRepository<Dialogue, Integer> {
-    Dialogue findBySubtitle(String subtitle);
+    List<Dialogue> findBySubtitle(String subtitle);
+
+    Dialogue findBySubtitleAndDialogueEndTime(String subtitle, String startTime);
 
     @Query("SELECT DISTINCT d.subtitle FROM Dialogue d")
     List<String> findAllUniqueSubtitleNames();
