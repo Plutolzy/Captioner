@@ -22,7 +22,7 @@ public class DialogueServiceImp implements DialogueService {
     @Override
     public boolean isDialoguePresent(Dialogue dialogue) {
         boolean dialogueExists = false;
-        Dialogue existingDialogue = dialogueRepository.findBySubtitleId(dialogue.getSubtitleId());
+        Dialogue existingDialogue = dialogueRepository.findBySubtitle(dialogue.getSubtitle());
         if (existingDialogue != null) {
             dialogueExists = true;
         }
@@ -30,9 +30,14 @@ public class DialogueServiceImp implements DialogueService {
     }
 
     @Override
-    public List<Dialogue> saveAllDialogues(List<Dialogue> dialogueList, int subtitleId) {
+    public List<String> getAllSubtitleNames() {
+        return dialogueRepository.findAllUniqueSubtitleNames();
+    }
+
+    @Override
+    public List<Dialogue> saveAllDialogues(List<Dialogue> dialogueList, String subtitle) {
         for (Dialogue dialogue : dialogueList) {
-            dialogue.setSubtitleId(subtitleId); // 关联 subtitleId
+            dialogue.setSubtitle(subtitle); // 关联 subtitleId
         }
         return dialogueRepository.saveAll(dialogueList);
     }

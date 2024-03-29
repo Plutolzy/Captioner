@@ -1,100 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Add Play Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Add Play Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    .container-fluid {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+        .container-fluid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    .container {
-      text-align: center;
-      background-color: #ffffff;
-      padding: 40px 60px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px 60px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    .button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 15px 30px; /* 调整按钮内边距 */
-      margin: 10px;
-      margin-top: 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none; /* Remove underline from anchors */
-      display: inline-block;
-      font-weight: bold; /* 加粗按钮字体 */
-      font-size: 18px; /* 调大按钮字体大小 */
-    }
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px; /* 调整按钮内边距 */
+            margin: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline from anchors */
+            display: inline-block;
+            font-weight: bold; /* 加粗按钮字体 */
+            font-size: 18px; /* 调大按钮字体大小 */
+        }
 
-    .button:hover {
-      background-color: #0056b3;
-    }
+        .button:hover {
+            background-color: #0056b3;
+        }
 
-    h1 {
-      color: #333;
-    }
+        h1 {
+            color: #333;
+        }
 
-    input[type="text"],
-    input[type="number"],
-    input[type="datetime-local"] {
-      width: 100%;
-      padding: 12px; /* 调整输入框内边距 */
-      margin: 5px 0;
-      box-sizing: border-box;
-      font-size: 16px; /* 调大输入框文字大小 */
-    }
-  </style>
+        input[type="text"],
+        input[type="number"],
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 12px; /* 调整输入框内边距 */
+            margin: 5px 0;
+            box-sizing: border-box;
+            font-size: 16px; /* 调大输入框文字大小 */
+        }
+
+        select {
+            width: 100%;
+            padding: 12px; /* 调整输入框内边距 */
+            margin: 5px 0;
+            box-sizing: border-box;
+            font-size: 16px; /* 调大输入框文字大小 */
+        }
+    </style>
 </head>
 <body style="background-color: #ededed;">
 <div class="container-fluid">
-  <div class="container">
-      <form accept-charset="UTF-8" action="#" autocomplete="off" class="form-signin" method="post"
-            th:action="@{/addplay}"
-            th:object="${play}">
-          <h1>Add Play Form</h1>
+    <div class="container">
+        <form accept-charset="UTF-8" action="#" autocomplete="off" class="form-signin" method="post"
+              th:action="@{/addplay}"
+              th:object="${play}">
+            <h1>Add Play Form</h1>
 
-          <input type="text" th:field="*{title}" placeholder="Title" class="form-control"/>
+            <input class="form-control" placeholder="Session" th:field="*{title}" type="text"/>
 
-          <input class="form-control" min="1" placeholder="Subtitle ID" th:field="*{subtitleId}" type="number"/>
+            <select class="form-control" name="subtitle" required>
+                <option th:each="subtitleName : ${subtitleNames}" th:text="${subtitleName}" th:value="${subtitleName}">
+                    Subtitle
+                </option>
+            </select>
 
-          <input class="form-control" placeholder="StartTime" th:field="*{startTime}" type="datetime-local"/>
+            <input class="form-control" placeholder="StartTime" th:field="*{startTime}" type="datetime-local"/>
 
-          <input class="form-control" placeholder="EndTime" th:field="*{endTime}" type="datetime-local"/>
+            <input class="form-control" placeholder="EndTime" th:field="*{endTime}" type="datetime-local"/>
 
 
-          <button class="button" type="submit">Add Play</button>
+            <button class="button" type="submit">Add Play</button>
 
-          <span th:utext="${successMessage}"></span>
-          <div class="alert alert-success alert-dismissible col-sm-12"
-           th:if="${bindingResult!=null && bindingResult.getAllErrors()!=null}">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-          X
-        </button>
-        <ul th:each="data : ${bindingResult.getAllErrors()}">
-          <li th:text="${data.getObjectName() + ' :: ' + data.getDefaultMessage()}"></li>
-        </ul>
-      </div>
-    </form>
-  </div>
+            <span th:utext="${successMessage}"></span>
+            <div class="alert alert-success alert-dismissible col-sm-12"
+                 th:if="${bindingResult!=null && bindingResult.getAllErrors()!=null}">
+                <button aria-hidden="true" class="close" data-dismiss="alert" type="button">
+                    X
+                </button>
+                <ul th:each="data : ${bindingResult.getAllErrors()}">
+                    <li th:text="${data.getObjectName() + ' :: ' + data.getDefaultMessage()}"></li>
+                </ul>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

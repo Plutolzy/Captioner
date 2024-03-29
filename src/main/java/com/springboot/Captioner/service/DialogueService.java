@@ -12,5 +12,7 @@ public interface DialogueService {
 
     public boolean isDialoguePresent(Dialogue dialogue);
 
-    public List<Dialogue> saveAllDialogues(List<Dialogue> dialogueList, int subtitleId);
+    public List<String> getAllSubtitleNames();
+
+    public List<Dialogue> saveAllDialogues(List<Dialogue> dialogueList, String subtitle);
 }

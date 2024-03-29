@@ -10,8 +10,8 @@ public class Dialogue {
     @Column(name = "dialogue_id")
     private int id;
 
-    @Column(name = "subtitle_id")
-    private int subtitleId;
+    @Column(name = "subtitle_name")
+    private String subtitle;
 
     @Column(name = "dialogue_start_time")
     private String dialogueStartTime;  // 演出开始时间
@@ -39,12 +39,12 @@ public class Dialogue {
         this.id = id;
     }
 
-    public int getSubtitleId() {
-        return subtitleId;
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    public void setSubtitleId(int subtitleId) {
-        this.subtitleId = subtitleId;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public String getDialogueStartTime() {

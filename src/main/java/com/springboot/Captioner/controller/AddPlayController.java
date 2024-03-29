@@ -2,6 +2,7 @@ package com.springboot.Captioner.controller;
 
 import com.springboot.Captioner.model.Play;
 import com.springboot.Captioner.model.PlayDTO;
+import com.springboot.Captioner.service.DialogueService;
 import com.springboot.Captioner.service.PlayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -21,19 +21,23 @@ public class AddPlayController {
     @Autowired
     PlayService playService;
 
-    @RequestMapping(value = {"/addplay"}, method = RequestMethod.GET)
-    public ModelAndView addPlays(){
-        ModelAndView modelAndView = new ModelAndView();
-        Play play = new Play();
-        modelAndView.addObject("play", play);
-        modelAndView.setViewName("addplay"); // resources/template/register.html
-        return modelAndView;
+    @Autowired
+    DialogueService dialogueService;
+
+
+    @GetMapping("/addplay")
+    public String showAddPlayForm(Model model) {
+        List<String> subtitleNames = dialogueService.getAllSubtitleNames(); // 获取数据库中已有的subtitle_name列表
+        model.addAttribute("subtitleNames", subtitleNames); // 将subtitle_name列表添加到模型中
+        model.addAttribute("play", new Play());
+        return "addplay";
     }
 
-    @RequestMapping(value = "/addplay", method = RequestMethod.POST)
-    public ModelAndView addPlay(@Valid Play play, BindingResult bindingResult, ModelMap modelMap){
+    @PostMapping("/addplay")
+    public ModelAndView addPlay(@Valid Play play, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
-        if(bindingResult.hasErrors()){
+
+        if (bindingResult.hasErrors()) {
             modelAndView.addObject("successMessage", "Please add correct details!");
             modelMap.addAttribute("bindingResult", bindingResult);
         } else if (playService.isPlayPresent(play)) {
@@ -42,10 +46,12 @@ public class AddPlayController {
             playService.savePlay(play);
             modelAndView.addObject("successMessage", "Play added successfully!");
         }
+
         modelAndView.addObject("play", new Play());
         modelAndView.setViewName("addplay");
         return modelAndView;
     }
+
 
     @GetMapping("/viewplays")
     public String viewPlays(Model model) {

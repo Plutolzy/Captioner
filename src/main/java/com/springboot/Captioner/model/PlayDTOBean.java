@@ -1,12 +1,11 @@
 package com.springboot.Captioner.model;
 
-import java.time.LocalDateTime;
-
 public class PlayDTOBean {
     private int id;
     private String title;
     private String startTime;
     private String endTime;
+    private String subtitle;
 
     public String getStartTime() {
         return startTime;
@@ -40,5 +39,11 @@ public class PlayDTOBean {
         this.title = title;
     }
 
+    public String getSubtitle() {
+        return subtitle;
+    }
 
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
 }

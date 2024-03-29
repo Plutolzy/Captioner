@@ -4,10 +4,10 @@ import com.springboot.Captioner.model.Play;
 import com.springboot.Captioner.model.PlayDTO;
 import com.springboot.Captioner.model.PlayTitleDTO;
 import com.springboot.Captioner.repository.PlayRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,6 +51,7 @@ public class PlayServiceImp implements PlayService {
         PlayDTO dto = new PlayDTO();
         dto.setId(play.getId());
         dto.setTitle(play.getTitle());
+        dto.setSubtitle(play.getSubtitle());
         dto.setStartTime(play.getStartTime());
         dto.setEndTime(play.getEndTime());
         return dto;

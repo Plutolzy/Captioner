@@ -38,6 +38,7 @@ public class BookingController {
             PlayDTOBean playDTOBean = new PlayDTOBean();
             playDTOBean.setId(allPlays.get(i).getId());
             playDTOBean.setTitle(allPlays.get(i).getTitle());
+            playDTOBean.setSubtitle(allPlays.get(i).getSubtitle());
             String startLocalTime = df.format(allPlays.get(i).getStartTime());
             playDTOBean.setStartTime(startLocalTime);
             String endLocalTime = df.format(allPlays.get(i).getEndTime());

@@ -2,7 +2,6 @@ package com.springboot.Captioner.service;
 
 import com.springboot.Captioner.model.Booking;
 import com.springboot.Captioner.model.Play;
-import com.springboot.Captioner.model.PlayDTO;
 import com.springboot.Captioner.model.PlayDTOBean;
 import com.springboot.Captioner.repository.BookingRepository;
 import com.springboot.Captioner.repository.PlayRepository;
@@ -46,6 +45,7 @@ public class BookingServiceImp implements BookingService { // 确保实现了接
                 PlayDTOBean playDTOBean = new PlayDTOBean();
                 playDTOBean.setId(play.getId());
                 playDTOBean.setTitle(play.getTitle());
+                playDTOBean.setSubtitle(play.getSubtitle());
                 String startLocalTime = df.format(play.getStartTime());
                 playDTOBean.setStartTime(startLocalTime);
                 String endLocalTime = df.format(play.getEndTime());

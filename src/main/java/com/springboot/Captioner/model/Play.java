@@ -24,8 +24,8 @@ public class Play {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime endTime;  // 演出结束时间
 
-    @Column(name = "subtitle_id")
-    private int subtitleId;
+    @Column(name = "subtitle_name")
+    private String subtitle;
 
 //    @ManyToMany(mappedBy = "plays")
 //    private Set<User> users;
@@ -70,19 +70,12 @@ public class Play {
         this.endTime = endTime;
     }
 
-    public boolean isBooked() {
-        return LocalDateTime.now().isBefore(this.endTime);
+
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    public boolean hasEnded() {
-        return LocalDateTime.now().isAfter(this.endTime);
-    }
-
-    public int getSubtitleId() {
-        return subtitleId;
-    }
-
-    public void setSubtitleId(int subtitleId) {
-        this.subtitleId = subtitleId;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 }
