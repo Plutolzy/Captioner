@@ -1,6 +1,7 @@
 package com.springboot.Captioner.service;
 
 import com.springboot.Captioner.model.Dialogue;
+import com.springboot.Captioner.model.DialogueDTO;
 import com.springboot.Captioner.repository.DialogueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DialogueServiceImp implements DialogueService {
@@ -47,7 +49,7 @@ public class DialogueServiceImp implements DialogueService {
     }
 
     @Override
-    public List<Dialogue> getCurrentDialogueList(String subtitle, String playStartTime, String currentTime) {
+    public List<DialogueDTO> getCurrentDialogueList(String subtitle, String playStartTime, String currentTime) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(playStartTime, dateTimeFormatter);
         LocalDateTime nowString = LocalDateTime.parse(currentTime, dateTimeFormatter);
@@ -55,7 +57,7 @@ public class DialogueServiceImp implements DialogueService {
 
         // 获取与当前 subtitle 相关的所有对话列表
         List<Dialogue> dialogueList = dialogueRepository.findBySubtitle(subtitle);
-        List<Dialogue> currentAndFutureDialogues = new ArrayList<>(); // 存放当前及之后的对话列表
+        List<DialogueDTO> currentAndFutureDialogues = new ArrayList<>(); // 存放当前及之后的对话列表
 
         // 计算播放开始了多久
         Duration playDuration = Duration.between(startTime, nowString).abs();
@@ -74,11 +76,28 @@ public class DialogueServiceImp implements DialogueService {
 
             // 如果对话开始时间在播放已进行时间之后或等于播放已进行时间，则添加到列表中
             if (dialogueStartTimeStr.compareTo(playDurationStr) <= 0) {
-                currentAndFutureDialogues.add(dialogue);
+                DialogueDTO dialogueDTO = convertToDialogueDTO(dialogue);
+                System.out.println("DialogueDTO start time type: " + dialogueDTO.getDialogueStartTime().getClass());
+                currentAndFutureDialogues.add(dialogueDTO);
             }
         }
 
         return currentAndFutureDialogues;
+    }
+
+    public List<DialogueDTO> getAllDialogueDTOs() {
+        List<Dialogue> dialogues = dialogueRepository.findAll();
+        return dialogues.stream().map(this::convertToDialogueDTO).collect(Collectors.toList());
+    }
+
+    public DialogueDTO convertToDialogueDTO(Dialogue dialogue) {
+        DialogueDTO dto = new DialogueDTO();
+        dto.setId(dialogue.getId());
+        dto.setDialogueStartTime(dialogue.getDialogueStartTime());
+        dto.setSubtitle(dialogue.getSubtitle());
+        dto.setDialogueEndTime(dialogue.getDialogueEndTime());
+        dto.setDialogueText(dialogue.getDialogueText());
+        return dto;
     }
 }
 

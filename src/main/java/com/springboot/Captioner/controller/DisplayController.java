@@ -1,13 +1,11 @@
 package com.springboot.Captioner.controller;
 
-import com.springboot.Captioner.model.Dialogue;
+import com.springboot.Captioner.model.DialogueDTO;
 import com.springboot.Captioner.model.Play;
-import com.springboot.Captioner.model.PlayDTOBean;
 import com.springboot.Captioner.model.UserResponse;
 import com.springboot.Captioner.repository.PlayRepository;
 import com.springboot.Captioner.service.DialogueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -22,17 +20,17 @@ public class DisplayController {
     @Autowired
     DialogueService dialogueService;
 
-    @PostMapping("/display")
-    public ResponseEntity<UserResponse> registerUser(@RequestBody PlayDTOBean playDTOBean) {
-        // 播放成功
-        UserResponse response = new UserResponse();
-        response.setSuccess(true);
-        return ResponseEntity.ok(response);
-    }
+//    @PostMapping("/display")
+//    public ResponseEntity<UserResponse> registerUser(@RequestBody PlayDTOBean playDTOBean) {
+//        // 播放成功
+//        UserResponse response = new UserResponse();
+//        response.setSuccess(true);
+//        return ResponseEntity.ok(response);
+//    }
 
     @PostMapping("/currentdialogue")
     @ResponseBody
-    public List<Dialogue> getCurrentAndFutureDialogue(@RequestParam("playTitle") String playTitle) {
+    public List<DialogueDTO> getCurrentAndFutureDialogue(@RequestParam("playTitle") String playTitle) {
         // 根据播放标题获取当前播放的信息
         System.out.println(playTitle);
         Play currentPlay = playRepository.findByTitle(playTitle);
@@ -50,6 +48,12 @@ public class DisplayController {
         UserResponse response = new UserResponse();
         response.setSuccess(true);
         // 获取当前及之后的对话列表
-        return dialogueService.getCurrentDialogueList(currentPlay.getSubtitle(), playStartTime, nowString);
+
+        List<DialogueDTO> currentDialogueList = dialogueService.getCurrentDialogueList(currentPlay.getSubtitle(), playStartTime, nowString);
+
+
+        System.out.println(currentDialogueList);
+
+        return currentDialogueList;
     }
 }

@@ -1,6 +1,7 @@
 package com.springboot.Captioner.service;
 
 import com.springboot.Captioner.model.Dialogue;
+import com.springboot.Captioner.model.DialogueDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public interface DialogueService {
 
     List<Dialogue> saveAllDialogues(List<Dialogue> dialogueList, String subtitle);
 
-    List<Dialogue> getCurrentDialogueList(String subtitle, String startTime, String currentTime);
+    List<DialogueDTO> getCurrentDialogueList(String subtitle, String startTime, String currentTime);
 
 }
