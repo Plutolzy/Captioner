@@ -71,15 +71,15 @@ public class DialogueServiceImp implements DialogueService {
         // 遍历对话列表，找到最接近播放已进行时间的对话
         for (Dialogue dialogue : dialogueList) {
             // 解析对话开始时间字符串
-            String dialogueStartTimeStr = dialogue.getDialogueStartTime();
-            // 解析对话开始时间为 LocalDateTime 对象
-
-            // 如果对话开始时间在播放已进行时间之后或等于播放已进行时间，则添加到列表中
-            if (dialogueStartTimeStr.compareTo(playDurationStr) <= 0) {
-                DialogueDTO dialogueDTO = convertToDialogueDTO(dialogue);
-                System.out.println("DialogueDTO start time type: " + dialogueDTO.getDialogueStartTime().getClass());
-                currentAndFutureDialogues.add(dialogueDTO);
-            }
+//            String dialogueStartTimeStr = dialogue.getDialogueStartTime();
+//            // 解析对话开始时间为 LocalDateTime 对象
+//
+//            // 如果对话开始时间在播放已进行时间之后或等于播放已进行时间，则添加到列表中
+//            if (dialogueStartTimeStr.compareTo(playDurationStr) <= 0) {
+            DialogueDTO dialogueDTO = convertToDialogueDTO(dialogue);
+//                System.out.println("DialogueDTO start time type: " + dialogueDTO.getDialogueStartTime().getClass());
+            currentAndFutureDialogues.add(dialogueDTO);
+//            }
         }
 
         return currentAndFutureDialogues;
