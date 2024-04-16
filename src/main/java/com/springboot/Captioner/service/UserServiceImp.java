@@ -51,7 +51,8 @@ public class UserServiceImp implements UserService {
         System.out.println("Converting play to DTO: " + dto);
         return dto;
     }
-@Override
+
+    @Override
     public String getCurrentUserEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {

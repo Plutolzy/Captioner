@@ -52,7 +52,7 @@ public class BookingController {
     public ResponseEntity<?> bookPlay(@RequestBody PlayTitleDTO playTitleDTO) {
         String user_email = userService.getCurrentUserEmail();
         String play_title = playTitleDTO.getTitle();
-        bookingService.bookPlay(user_email,play_title);
+        bookingService.bookPlay(user_email, play_title);
         UserResponse response = new UserResponse();
         response.setSuccess(true);
         response.setMessage("Booked successfully");
@@ -69,12 +69,11 @@ public class BookingController {
     }
 
 
-
     @PostMapping("/cancel")
     public ResponseEntity<?> cancelPlay(@RequestBody PlayTitleDTO playTitleDTO) {
         String user_email = userService.getCurrentUserEmail();
         String play_title = playTitleDTO.getTitle();
-        bookingService.cancelPlay(user_email,play_title);
+        bookingService.cancelPlay(user_email, play_title);
         UserResponse response = new UserResponse();
         response.setSuccess(true);
         response.setMessage("Canceled successfully");

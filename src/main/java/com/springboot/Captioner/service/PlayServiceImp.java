@@ -29,7 +29,7 @@ public class PlayServiceImp implements PlayService {
     public boolean isPlayPresent(Play play) {
         boolean playExists = false;
         Play existingPlay = playRepository.findByTitle(play.getTitle());
-        if(existingPlay!=null){
+        if (existingPlay != null) {
             playExists = true;
         }
         return playExists;
@@ -37,7 +37,7 @@ public class PlayServiceImp implements PlayService {
 
 
     @Override
-    public List<Play> findPlay(){
+    public List<Play> findPlay() {
         return playRepository.findAll();
     }
 
@@ -56,6 +56,7 @@ public class PlayServiceImp implements PlayService {
         dto.setEndTime(play.getEndTime());
         return dto;
     }
+
     private PlayTitleDTO convertToPlayTileDTO(Play play) {
         PlayTitleDTO dto = new PlayTitleDTO();
         dto.setTitle(play.getTitle());

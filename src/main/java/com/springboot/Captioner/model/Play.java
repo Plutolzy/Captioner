@@ -31,6 +31,7 @@ public class Play {
 //    private Set<User> users;
 
     public String getTitle() {
+        title = subtitle + " " + startTime.toString();
         return title;
     }
 

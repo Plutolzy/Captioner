@@ -1,77 +1,95 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>View Plays</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>View Plays</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    .container-fluid {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+        .container-fluid {
+            height: 70vh; /* 固定高度 */
+            width: 80%; /* 固定宽度 */
+            border-radius: 10px; /* 圆角 */
+            overflow: auto; /* 启用滚动 */
+            background-color: #ffffff; /* 容器背景颜色 */
+            padding: 40px 60px; /* 内边距 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影 */
+            text-align: center; /* 标题居中 */
+        }
 
-    .container {
-      text-align: center;
-      background-color: #ffffff;
-      padding: 40px 60px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+        h1 {
+            color: #333;
+            margin-bottom: 20px; /* 标题下方留白 */
+        }
 
-    h1 {
-      color: #333;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* 使用固定表格布局 */
+            height: 100%; /* 固定表格高度 */
+            overflow-y: auto; /* 启用表格垂直滚动 */
+        }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            word-wrap: break-word; /* 单元格内容换行 */
+        }
 
-    th, td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-  </style>
+        /* 调整列宽 */
+        th:nth-child(2) {
+            width: 15%;
+        }
+
+        /* Session列宽 */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 5%;
+        }
+
+        /* ID列宽 */
+
+        /* 禁止Session列内容换行 */
+        th:nth-child(3),
+        td:nth-child(3) {
+            white-space: nowrap;
+        }
+    </style>
 </head>
 <body style="background-color: #ededed;">
 <div class="container-fluid">
-  <div class="container">
     <h1>View Plays</h1>
     <table>
-      <thead>
-      <tr>
-          <th>ID</th>
-          <th>Subtitle</th>
-          <th>Session</th>
-          <th>Start Time</th>
-          <th>End Time</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- 使用 Thymeleaf 迭代渲染 playList 中的每个 Play 对象 -->
-      <tr th:each="play : ${plays}">
-        <td th:text="${play.id}"></td>
-          <td th:text="${play.subtitle}"></td>
-        <td th:text="${play.title}"></td>
-        <td th:text="${play.startTime}"></td>
-        <td th:text="${play.endTime}"></td>
-      </tr>
-      </tbody>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Subtitle</th>
+            <th>Session</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 使用 Thymeleaf 迭代渲染 playList 中的每个 Play 对象 -->
+        <tr th:each="play : ${plays}">
+            <td th:text="${play.id}"></td>
+            <td th:text="${play.subtitle}"></td>
+            <td th:text="${play.title}"></td>
+            <td th:text="${play.startTime}"></td>
+            <td th:text="${play.endTime}"></td>
+        </tr>
+        </tbody>
     </table>
-  </div>
 </div>
 </body>
 </html>

@@ -51,7 +51,7 @@ public class BookingServiceImp implements BookingService { // 确保实现了接
                 String endLocalTime = df.format(play.getEndTime());
                 playDTOBean.setEndTime(endLocalTime);
                 bookings.add(playDTOBean);
-            }else {
+            } else {
                 System.out.println("No play found for title: " + playTitle);
             }
         }
@@ -62,19 +62,19 @@ public class BookingServiceImp implements BookingService { // 确保实现了接
     @Override
     public Booking cancelPlay(String userEmail, String playTitle) {
         // 根据用户邮箱地址和剧目标题查询预订记录
-         Booking booking = bookingRepository.findByUserEmailAndPlayTitle(userEmail, playTitle);
+        Booking booking = bookingRepository.findByUserEmailAndPlayTitle(userEmail, playTitle);
         System.out.println("Cancel play method called with userEmail: " + userEmail + " and playTitle: " + playTitle);
         if (booking != null) {
             System.out.println("Found booking for userEmail: " + userEmail + " and playTitle: " + playTitle);
             bookingRepository.delete(booking);
-        }else {
+        } else {
             System.out.println("No booking found for userEmail: " + userEmail + " and playTitle: " + playTitle);
         }
         return booking;
     }
 
     @Override
-    public Booking findByUserEmailAndPlayTitle(String userEmail, String playTitle){
+    public Booking findByUserEmailAndPlayTitle(String userEmail, String playTitle) {
         return bookingRepository.findByUserEmailAndPlayTitle(userEmail, playTitle);
     }
 

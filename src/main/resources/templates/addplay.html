@@ -80,7 +80,7 @@
               th:object="${play}">
             <h1>Add Play Form</h1>
 
-            <input class="form-control" placeholder="Session" th:field="*{title}" type="text"/>
+<!--            <input class="form-control" placeholder="Session" th:field="*{title}" type="text"/>-->
 
             <select class="form-control" name="subtitle" required>
                 <option th:each="subtitleName : ${subtitleNames}" th:text="${subtitleName}" th:value="${subtitleName}">

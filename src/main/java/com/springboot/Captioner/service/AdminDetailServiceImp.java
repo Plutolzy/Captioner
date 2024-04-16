@@ -1,4 +1,5 @@
 package com.springboot.Captioner.service;
+
 import com.springboot.Captioner.model.Admin;
 import com.springboot.Captioner.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;

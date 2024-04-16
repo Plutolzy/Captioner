@@ -27,6 +27,7 @@ public class UserLoginController {
 
     @Autowired
     private UserRepository userRepository;
+
     // 注册新用户
     @PostMapping("/register")
     public ResponseEntity<UserResponse> registerUser(@RequestBody User user) {
@@ -44,7 +45,7 @@ public class UserLoginController {
             response.setSuccess(true);
             userService.saveUser(user);
             response.setMessage("User registered successfully");
-            System.out.println("niubi" );
+            System.out.println("niubi");
             response.setEmail(user.getEmail());
             return ResponseEntity.ok(response);
         }
@@ -52,7 +53,7 @@ public class UserLoginController {
 
     // 用户登录
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> loginUser(@RequestBody User user,HttpServletRequest request) {
+    public ResponseEntity<UserResponse> loginUser(@RequestBody User user, HttpServletRequest request) {
         User existingUser = userService.getUserByEmail(user.getEmail());
         if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
             // 登录成功, 手动设置认证信息
@@ -75,7 +76,7 @@ public class UserLoginController {
             UserResponse response = new UserResponse();
             response.setSuccess(false);
             response.setMessage("Invalid credentials");
-            System.out.println("buniubi" );
+            System.out.println("buniubi");
             // Email为空，因为登录失败不应返回邮箱信息
             response.setEmail(null);
             return ResponseEntity.ok(response);
@@ -96,19 +97,19 @@ public class UserLoginController {
             System.out.println("niubi");
             response.setEmail(user.getEmail());
             return ResponseEntity.ok(response);
-        } else if (existingUser == null){
+        } else if (existingUser == null) {
             // 不存在用户
             UserResponse response = new UserResponse();
             response.setSuccess(false);
             response.setMessage("User not exist");
-            System.out.println("buniubi" );
+            System.out.println("buniubi");
             response.setEmail(user.getEmail());
             return ResponseEntity.ok(response);
-        }else{
+        } else {
             UserResponse response = new UserResponse();
             response.setSuccess(false);
             response.setMessage("Name is wrong");
-            System.out.println("buniubi" );
+            System.out.println("buniubi");
             response.setEmail(user.getEmail());
             return ResponseEntity.ok(response);
         }
